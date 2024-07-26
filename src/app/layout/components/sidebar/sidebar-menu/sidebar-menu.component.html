@@ -1,0 +1,106 @@
+<div class="pt-4" *ngFor="let menu of menuService.pagesMenu">
+  <div class="mx-1 mb-2 flex items-center justify-between">
+    <small
+      [ngClass]="{ hidden: !menuService.showSideBar }"
+      class="text-xs font-semibold text-muted-foreground/50"
+    >
+      {{ menu.group }}
+    </small>
+  </div>
+  <ul class="flex flex-col space-y-1">
+    <!-- List items -->
+    <li *ngFor="let item of menu.items">
+      <!-- Menu List -->
+      <div
+        (click)="toggleMenu(item)"
+        class="group relative text-muted-foreground"
+      >
+        <!-- Icon Container -->
+        <div
+          [ngClass]="
+            item.active && !menuService.showSideBar
+              ? 'text-primary'
+              : 'text-muted-foreground/50'
+          "
+          class="icon-container pointer-events-none absolute m-2"
+        >
+          <img src="{{ item.icon }}" alt="{{ item.label }}" class="icon" />
+        </div>
+
+        <!-- Condition -->
+        <ng-container
+          [ngTemplateOutlet]="item.children ? childMenu : parentMenu"
+          [ngTemplateOutletContext]="{ item: item }"
+        >
+        </ng-container>
+
+        <!-- Workaround:: Enable routerLink -->
+        <ng-template #parentMenu let-item="item">
+          <div
+            routerLink="{{ item.route }}"
+            class="flex h-9 cursor-pointer items-center justify-start rounded-md text-muted-foreground hover:bg-gray-100 hover:text-foreground"
+          >
+            <a
+              routerLinkActive="text-primary"
+              class="ml-10 truncate text-xs font-semibold tracking-wide focus:outline-none"
+            >
+              {{ item.label }}
+            </a>
+          </div>
+        </ng-template>
+
+        <!-- Workaround:: Disable routerLink -->
+        <ng-template #childMenu let-item="item">
+          <div
+            class="flex h-9 cursor-pointer items-center justify-start rounded hover:bg-zinc-100"
+          >
+            <a
+              class="ml-10 truncate text-xs font-semibold tracking-wide text-muted-foreground focus:outline-none group-hover:text-foreground"
+            >
+              {{ item.label }}
+            </a>
+          </div>
+        </ng-template>
+
+        <!-- Arrow Icon -->
+        <button
+          *ngIf="item.children"
+          [ngClass]="{
+            hidden: !menuService.showSideBar,
+            'rotate-90': item.expanded
+          }"
+          class="pointer-events-none absolute top-1 right-0 flex items-center p-1 text-muted-foreground/50 transition-all duration-500"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+            class="size-5"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
+
+        <!-- Tooltip -->
+        <div class="fixed w-full" *ngIf="!menuService.showSideBar">
+          <span
+            class="z-1 absolute left-14 -top-[34px] w-auto min-w-max origin-left scale-0 rounded-md bg-foreground p-2 text-xs font-bold text-background shadow-md transition-all duration-200 group-hover:scale-100"
+          >
+            {{ item.label }}
+          </span>
+        </div>
+      </div>
+
+      <!-- Submenu items -->
+      <app-sidebar-submenu [submenu]="item"></app-sidebar-submenu>
+    </li>
+  </ul>
+
+  <div class="pt-3" *ngIf="menu.separator">
+    <hr class="border-dashed border-border border-gray-200" />
+  </div>
+</div>

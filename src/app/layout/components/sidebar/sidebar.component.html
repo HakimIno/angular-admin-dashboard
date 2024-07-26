@@ -1,0 +1,84 @@
+<nav
+  [ngClass]="menuService.showSideBar ? 'w-52 xl:w-64' : 'w-[70px]'"
+  class="scrollbar-thumb-rounded scrollbar-track-rounded hidden h-full flex-col justify-between overflow-auto bg-background pt-3 transition-all duration-300 scrollbar-thin scrollbar-track-transparent scrollbar-thumb-card lg:flex shadow-sm"
+>
+  <div class="px-4">
+    <!-- Logo -->
+    <div class="relative h-10">
+      <div class="flex items-center" *ngIf="menuService.showSideBar">
+        <a
+          class="font-medium rounded-lg border-2 border-dashed border-black flex cursor-pointer items-center justify-center bg-primary focus:outline-none focus:ring-1 py-1 px-3"
+        >
+          A
+        </a>
+        <b class="ml-1 pl-2 text-sm font-bold text-foreground">Sheep</b>
+      </div>
+
+      <button
+        (click)="toggleSidebar()"
+        class="absolute top-0 right-0 rounded-lg bg-slate-50 p-1 text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-lg hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+        [ngClass]="{ 'rotate-180': !menuService.showSideBar }"
+      >
+        <svg
+          class="w-[24px] h-[24px] text-gray-800 dark:text-black"
+          aria-hidden="true"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          fill="none"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="3"
+            d="m15 19-7-7 7-7"
+          />
+        </svg>
+      </button>
+
+      <div class="pt-3">
+        <hr class="border-dashed border-muted border-gray-200" />
+      </div>
+
+      <app-sidebar-menu></app-sidebar-menu>
+    </div>
+  </div>
+
+  <div class="mx-4 my-4 space-y-1">
+    <div class="pt-3">
+      <hr class="border-dashed border-border border-gray-200" />
+    </div>
+
+    <button
+      target="_blank"
+      type="button"
+      class="transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-lg hover:shadow-[4px_4px_0px_black] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none group flex h-9 cursor-pointer items-center justify-start rounded-lg p-2 hover:bg-white w-full text-muted-foreground/50"
+      (click)="logout()"
+    >
+      <div class="icon-container">
+        <img
+          class="icon"
+          src="https://jgyazpmncibkucygwvuq.supabase.co/storage/v1/object/sign/icon/logout-svgrepo-com.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJpY29uL2xvZ291dC1zdmdyZXBvLWNvbS5wbmciLCJpYXQiOjE3MjE5ODA1MjUsImV4cCI6MTc1MzUxNjUyNX0.lKaKmvJCwJhM4EziX6a5vUmyMMU4DRi6nk6QogzFajY&t=2024-07-26T07%3A55%3A25.541Z"
+          alt="logout"
+        />
+      </div>
+
+      <div
+        *ngIf="menuService.showSideBar"
+        class="ml-3 truncate text-sm font-semibold font-mono tracking-wide focus:outline-none"
+      >
+        ออกจากระบบ
+      </div>
+
+      <div class="fixed w-full" *ngIf="!menuService.showSideBar">
+        <span
+          class="z-1 absolute left-12 -top-4 w-auto min-w-max origin-left scale-0 rounded-md bg-foreground p-2 text-xs font-bold text-background shadow-md transition-all duration-200 group-hover:scale-100"
+        >
+          ออกจากระบบ
+        </span>
+      </div>
+    </button>
+  </div>
+</nav>
