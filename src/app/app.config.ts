@@ -4,6 +4,8 @@ import { NavigationError, provideRouter, RedirectCommand, Router, withComponentI
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
 import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
+
 
 export function handleNavError(error: NavigationError) {
   const router = inject(Router);
@@ -24,7 +26,9 @@ export const appConfig: ApplicationConfig = {
     withNavigationErrorHandler(handleNavError),
   ),
   provideClientHydration(),
-  provideHttpClient(),],
+  provideHttpClient(),
+  provideAnimations()
+  ],
 
 
 };

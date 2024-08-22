@@ -33,7 +33,6 @@ export class NavbarMenuComponent implements OnInit {
     setBreadcrumbs() {
         const root = this.router.routerState.snapshot.root;
         this.breadcrumbs = this.createBreadcrumbs(root);
-        console.log('Breadcrumbs:', this.breadcrumbs); // Debugging line
     }
 
     createBreadcrumbs(route: any, url: string = '', breadcrumbs: Array<{ label: string, url: string }> = []): Array<{ label: string, url: string }> {

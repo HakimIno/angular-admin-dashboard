@@ -5,6 +5,7 @@ import { jwtDecode, JwtPayload } from 'jwt-decode'
 import { PLATFORM_ID, Inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { Router, UrlTree } from '@angular/router';
+import { environment } from '../../environments/environment'; // Import the environment configuration
 
 export interface UserData {
   id: string,
@@ -46,7 +47,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<UserData> {
     this.isLoadingSubject.next(true);
-    return this.http.post<{ tokens: { access: string } }>('http://localhost:8888/v1/auth/login', {
+    return this.http.post<{ tokens: { access: string } }>(`${environment.apiUrl}auth/login`, {
       email,
       password
     }).pipe(

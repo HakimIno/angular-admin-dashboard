@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
 
       this.authService.login(email, password).subscribe({
         next: (res) => {
-          console.log('LOGIN DONE', res);
           this.isLoading = false; // Reset loading state
           this.router.navigateByUrl('/dashboard');
         },

@@ -24,20 +24,20 @@ export const routes: Routes = [
             {
                 path: "dashboard",
                 loadComponent: () => import("./pages/dashboard/dashboard.component").then((mod) => mod.DashboardComponent),
-                children: [
-                    {
-                        path: "home",
-                        loadComponent: () => import("./pages/dashboard/dashboard.component").then((mod) => mod.DashboardComponent),
-                        data: { breadcrumb: "Home" },
-                        children: [
-                            {
-                                path: "service",
-                                loadComponent: () => import("./pages/dashboard/dashboard.component").then((mod) => mod.DashboardComponent),
-                                data: { breadcrumb: "service" },
-                            }
-                        ]
-                    },
-                ]
+                // children: [
+                //     {
+                //         path: "home",
+                //         loadComponent: () => import("./pages/dashboard/dashboard.component").then((mod) => mod.DashboardComponent),
+                //         data: { breadcrumb: "Home" },
+                //         children: [
+                //             {
+                //                 path: "service",
+                //                 loadComponent: () => import("./pages/dashboard/dashboard.component").then((mod) => mod.DashboardComponent),
+                //                 data: { breadcrumb: "service" },
+                //             }
+                //         ]
+                //     },
+                // ]
             }
         ]
     },
